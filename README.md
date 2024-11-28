@@ -2,7 +2,8 @@
 
 A comprehensive analytics dashboard built with Next.js, featuring real-time data visualization, authentication system, and interactive charts for business metrics tracking.
 
-![Dashboard Preview](public/dashboard-preview.png)
+![Dashboard Preview]()![rb-dasboard-ui:ux](https://github.com/user-attachments/assets/fb602a3a-caf5-46c5-a0c5-39bd90ab324e)
+
 
 ## 🚀 Live Demo
 [View Live Dashboard](https://assignment-jet-three.vercel.app/)
