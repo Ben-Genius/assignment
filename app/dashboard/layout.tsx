@@ -22,7 +22,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
 
       {/* Main content area */}
-      <div className="lg:pl-72">
+      <div className="lg:pl-[15rem] pr-2">
         <Navbar onSidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
         <main className="p-4 sm:p-6 lg:p-8">{children}</main>
       </div>

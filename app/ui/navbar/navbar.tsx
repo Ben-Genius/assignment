@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function Navbar({ onSidebarToggle }: { onSidebarToggle: () => void }) {
   return (
-    <header className="sticky top-0 z-40 flex items 8 shadow-md sm:px-6 lg:px-8 h-16 border-b w-full items-center justify-between">
+    <header className="sticky top-0 z-40 flex items 8 sm:px-6 lg:px-8 bg-white w-full items-center justify-between pt-6 py-6 border-b m">
     
 
       <div className="">
