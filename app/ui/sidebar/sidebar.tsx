@@ -4,6 +4,10 @@ import { Cog6ToothIcon, ChartBarIcon, UsersIcon, ShoppingBagIcon, EnvelopeIcon, 
 import { BsGridFill } from 'react-icons/bs';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { LockClosedIcon } from '@heroicons/react/24/solid';
+import { IoLockClosed } from 'react-icons/io5';
+import { BiDoorOpen } from 'react-icons/bi';
+import { logoutUser } from '@/app/services/utils/auth';
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: BsGridFill },
   { name: 'Statistics', href: '/dashboard/statistics', icon: ChartBarIcon, current: false },
@@ -16,6 +20,7 @@ const navigation = [
 const generalNavigation = [
   { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
   { name: 'Security', href: '/security', icon: ShieldCheckIcon, current: false },
+
 ];
 
 export default function Sidebar({ isMobileOpen, onLinkClick }: { isMobileOpen?: boolean, onLinkClick?: () => void }) {
@@ -105,6 +110,14 @@ export default function Sidebar({ isMobileOpen, onLinkClick }: { isMobileOpen?: 
           </ul>
         </div>
       </nav>
+      <button
+        type="button"
+        onClick={logoutUser}
+        className="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-700 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center my-7 w-[90%] mx-auto ml-2 md:ml-0"
+      > Logout
+        <BiDoorOpen aria-hidden="true" className="-ml-0.5 size-4 text-gray-800 fill-current" />
+       
+      </button>
 
       {/* User Profile */}
       <div className="p-4 lg:mt-auto border-t border-[#004D26] mt-[10rem] md:mt-[20rem]">

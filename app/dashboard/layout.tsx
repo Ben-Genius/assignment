@@ -1,12 +1,30 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../ui/sidebar/sidebar';
 import Navbar from '../ui/navbar/navbar';
+import { useRouter } from 'next/navigation';
+import { checkAuth } from '../services/utils/auth';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const router = useRouter();
+
+  useEffect(() => {
+    const authenticated = checkAuth();
+    if (!authenticated) {
+      router.replace('/');
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile sidebar overlay */}

@@ -2,36 +2,43 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { ViewPerformance } from "@/app/services/model/model";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
- labels: ["View Count", "Sale", "Percentage"],
- datasets: [
-   {
-     data: [60, 16, 15],
-     backgroundColor: ["#9cf12b", "#e28b3b", "#1f870f"],
-     borderWidth: 0,
-   },
- ],
- hoverOffset: 4,
- 
-};
 
-const options = {
-
- cutout: "70%",
- rotation: 70,
- plugins: {
-   tooltip: { enabled: false },
-   legend: {
-     display: false,
-   }
- },
-};
-
-const DoughnutChart = () => {
- return (
+const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }) => {
+  const data = {
+    labels: ["View Count", "Sale", "Percentage"],
+    datasets: [
+      {
+       data: [
+         parseFloat(viewPerformance.view_count),
+         parseFloat(viewPerformance.sales),
+         parseFloat(viewPerformance.percentage)
+       ],
+        backgroundColor: ["#9cf12b", "#e28b3b", "#1f870f"],
+        borderWidth: 0,
+      },
+    ],
+    hoverOffset: 4,
+    
+   };
+   
+   const options = {
+   
+    cutout: "70%",
+    rotation: 70,
+    plugins: {
+      tooltip: { enabled: false },
+      legend: {
+        display: false,
+      }
+    },
+   };
+   
+  
+  return (
    <div className="">
      <div className="bg-white shadow-lg rounded-2xl w-[20rem] p-6 border-b-4 border-gray-800">
        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
@@ -44,7 +51,7 @@ const DoughnutChart = () => {
          {/* Center Text */}
          <div className="absolute inset-0 flex flex-col items-center justify-center">
            <p className="text-gray-600 text-sm">Total Count</p>
-           <p className="text-3xl font-bold text-gray-900">565K</p>
+           <p className="text-3xl font-bold text-gray-900">{viewPerformance.total_count}</p>
          </div>
          {/* Percentage Labels */}
      

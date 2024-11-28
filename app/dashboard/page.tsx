@@ -1,13 +1,58 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { EllipsisHorizontalIcon } from "@heroicons/react/16/solid";
 import { FaChartLine } from "react-icons/fa";
 import { PiChartLineDownBold } from "react-icons/pi";
 import DoughnutChart from "../ui/chartComponents/doughnut";
 import { SalesDashboard, Revenue } from "../ui/chartComponents/chartComponent";
+import { withAuth } from "../middleware/authMiddleware";
+import toast from "react-hot-toast";
+import axios from '../services/utils/axiosConfig';
+import { DashboardData } from "../services/model/model";
+
+
 const DashboardPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+  const fetchDashboardData = async () => {
+    try {
+      const response = await axios.get('/report/summary/');
+      console.log(response);
+      if (response.data.status) {
+        setDashboardData(response.data.data);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to fetch dashboard data');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!dashboardData) {
+    return (
+      <div className="text-center py-10">
+        <p>Failed to load dashboard data</p>
+        <button 
+          onClick={fetchDashboardData}
+          className="mt-4 bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Retry
+        </button>
+      </div>
+    );}
+
   return (
-    <div className="w-full px-4 -mt-8">
+    <div className="w-full px-4 mt-4">
       {/* Header */}
       <h1 className="text-3xl font-bold mt-0">Dashboard</h1>
       <div className="flex justify-between items-center mb-6 ">
@@ -28,12 +73,13 @@ const DashboardPage = () => {
             </span>
             <p className="text-sm font-semibold text-gray-300">Update</p>
           </div>
-          <small className="text-gray-400 font-medium">Feb 12th 2024</small>
+          <small className="text-gray-400 font-medium"> {new Date(dashboardData.update.date).toLocaleDateString()}
+          </small>
           <h2 className="text-xl font-bold sm:text-nowrap">
             Sales revenue increased
           </h2>
           <span className="text-xl font-bold">
-            <span className="text-green-400">40%</span> in 1 week
+            <span className="text-green-400">{dashboardData.update.percentage_change}</span> in 1 week
           </span>
           <div className="mt-7">
             <Link href="" className="text-xs text-gray-400">
@@ -48,42 +94,49 @@ const DashboardPage = () => {
             <EllipsisHorizontalIcon className="h-7 w-7 text-black" />
           </div>
           <div className="w-full text-center relative">
-            <span className="text-5xl font-semibold relative"> 193.000</span>
-            <p className="relative -top-14 font-semibold right-24  text-lg">
-              $
+            <span className="text-5xl font-semibold relative">  {parseInt(dashboardData.net_income.amount).toLocaleString()}            </span>
+            <p className="relative -top-14 font-semibold right-[6.5rem]  text-sm">
+            {dashboardData.net_income.currency}
             </p>
           </div>
 
           <div className="font-bold  flex items-center gap-2">
             <FaChartLine className="text-green-400 " />
-            <span className="text-green-400"> +35% </span>
+            <span className="text-green-400"> {dashboardData.net_income.percentage_change} </span>
             <span>from last month</span>
           </div>
         </div>
+
         <div className=" p-6 rounded-lg border-2  px-6 w-full border-gray-500 flex flex-col justify-between h-[14rem] relative">
           <div className="flex items-center justify-between">
             <h3 className="text-black font-medium ">Total Return</h3>
             <EllipsisHorizontalIcon className="h-7 w-7 text-black" />
           </div>
           <div className="w-full text-center relative">
-            <span className="text-5xl font-semibold relative"> 32.000</span>
-            <p className="relative -top-14 font-semibold right-24  text-lg">
-              $
+            <span className="text-5xl font-semibold relative"> {dashboardData.total_return.amount}</span>
+            <p className="relative -top-14 font-semibold right-24  text-sm">
+             {dashboardData.total_return.currency}
             </p>
           </div>
 
           <div className="font-bold  flex items-center gap-2 relative">
             <PiChartLineDownBold className="text-red-400 " />
-            <span className="text-red-400"> -24% </span>
+            <span className="text-red-400">   {dashboardData.total_return.percentage_change}</span>
             <span>from last month</span>
           </div>
         </div>
-        <DoughnutChart />
+        <DoughnutChart viewPerformance={dashboardData.total_view_perfomance}/>
       </div>
-      <Revenue />
+      <Revenue revenueData={{
+        ...dashboardData.revenue,
+        break_down: dashboardData.revenue.break_down.map(item => ({
+          ...item,
+          week: item.week.toString()
+        }))
+      }}/>
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative lg:bottom-80 items-start">
-        <SalesDashboard />
+        <SalesDashboard salesData={dashboardData.sales_report}/>
         {/* Footer Section */}
         <div className="bg-[#d9d3c9] p-6 rounded-lg shadow-lg lg:max-w-[20rem] max-w-full mx-auto flex flex-col justify-end px-6 h-[22rem]">
           <h2 className="text-2xl font-bold text-gray-900 leading-tight max-w-[16rem]">
@@ -100,5 +153,4 @@ const DashboardPage = () => {
     </div>
   );
 };
-
 export default DashboardPage;

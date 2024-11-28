@@ -9,37 +9,9 @@ import { useFormik } from "formik";
 import axios from '../services/utils/axiosConfig';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import { loginUser } from "../services/utils/auth";
 
-// Define the response type based on the Postman collection
-interface LoginResponse {
-  status: boolean;
-  message: string;
-  data: {
-    refresh: string;
-    access: string;
-    user: {
-      id: string;
-      email: string;
-      phone_number: string;
-      user_type: string;
-      profile: {
-        first_name: string;
-        last_name: string;
-        "Other names": string;
-        user_name: string;
-        gender: string;
-        date_of_birth: string;
-        picture: string;
-      };
-    };
-    user_preference: {
-      id: string;
-      email_notification: boolean;
-      push_notification: boolean;
-      sms_notification: boolean;
-    };
-  };
-}
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -66,38 +38,15 @@ export default function Login() {
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         setIsLoading(true);
-        try {
-          const response = await axios.post<LoginResponse>(
-            '/auth/login/', 
-            {
-              email: values.email,
-              password: values.password
-            }
-          );
-
-          if (response.data.status) {
-            // Store tokens in localStorage
-            localStorage.setItem('accessToken', response.data.data.access);
-            localStorage.setItem('refreshToken', response.data.data.refresh);
-            
-            // Store user data if needed
-            localStorage.setItem('userData', JSON.stringify(response.data.data.user));
-
-            // Show success message
-            toast.success('Login successful!');
-
-            // Redirect to dashboard
-            router.push('/dashboard');
-          } else {
-            toast.error(response.data.message || 'Login failed');
-          }
-        } catch (error: any) {
-          let errorMessage = error.response.data.message;
-          
-          toast.error(errorMessage);
-        } finally {
-          setIsLoading(false);
+        const result = await loginUser(values.email, values.password);
+        if (result.success) {
+          toast.success('Login successful!');
+          router.push('/dashboard');
+        } else {
+          toast.error(result.error);
         }
+        setIsLoading(false);
+      
       }
     });
 
