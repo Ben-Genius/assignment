@@ -2,9 +2,11 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import { ViewPerformance } from "@/app/services/model/model";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 
 const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }) => {
@@ -12,31 +14,47 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
     labels: ["View Count", "Sale", "Percentage"],
     datasets: [
       {
-       data: [
-         parseFloat(viewPerformance.view_count),
-         parseFloat(viewPerformance.sales),
-         parseFloat(viewPerformance.percentage)
-       ],
+        data: [
+          parseFloat(viewPerformance.view_count),
+          parseFloat(viewPerformance.sales),
+          parseFloat(viewPerformance.percentage),
+        ],
         backgroundColor: ["#9cf12b", "#e28b3b", "#1f870f"],
         borderWidth: 0,
       },
     ],
     hoverOffset: 4,
-    
-   };
-   
-   const options = {
-   
+  };
+
+  const options = {
     cutout: "70%",
     rotation: 70,
     plugins: {
-      tooltip: { enabled: false },
+      tooltip: { enabled: true },
       legend: {
         display: false,
-      }
+      },
+      datalabels: {
+        color: "#fff",
+        formatter: (value: number, context: any) => {
+          const label = context.chart.data.labels[context.dataIndex];
+          return `${label}\n${value.toFixed(1)}%`;
+        },
+
+        anchor: "center" as const,
+        align: "center" as const,
+        font: {
+          size: 12,
+          weight: "bold" as const,
+        },
+        padding: 6,
+        backgroundColor: function(context: any) {
+          return context.dataset.backgroundColor[context.dataIndex];
+        },
+        borderRadius: 4
+      },
     },
-   };
-   
+  };
   
   return (
    <div className="">
@@ -46,15 +64,11 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
        </h2>
        <hr className="my-4"/>
        <div className="relative mb-6">
-         {/* Chart.js Doughnut Chart */}
          <Doughnut data={data} options={options} width={200} height={200} />
-         {/* Center Text */}
          <div className="absolute inset-0 flex flex-col items-center justify-center">
            <p className="text-gray-600 text-sm">Total Count</p>
            <p className="text-3xl font-bold text-gray-900">{viewPerformance.total_count}</p>
          </div>
-         {/* Percentage Labels */}
-     
        </div>
        <p className="text-sm text-center text-gray-500 mb-4">
          Here are some tips on how to improve your score
@@ -83,6 +97,8 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
      </div>
    </div>
  );
+
+
 };
 
 export default DoughnutChart;
