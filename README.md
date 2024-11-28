@@ -7,6 +7,7 @@ A comprehensive analytics dashboard built with Next.js, featuring real-time data
 
 ## 🚀 Live Demo
 [View Live Dashboard](https://assignment-jet-three.vercel.app/)
+NOTE: Login with super email: teddy.agudogo@rainforestbuilder.com
 
 ## ✨ Key Features
 
