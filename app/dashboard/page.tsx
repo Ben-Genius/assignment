@@ -68,7 +68,7 @@ const DashboardPage = () => {
 
       {/* Cards */}
       <div className="w-full ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-6 mb-6">
           <div className="bg-[#022706] text-white p-6 rounded-xl shadow  px-6 w-full h-[14rem]">
             <div className=" flex items-center  space-x-2 mb-4 w-full">
               {" "}
@@ -82,7 +82,7 @@ const DashboardPage = () => {
               {" "}
               {new Date(dashboardData.update.date).toLocaleDateString()}
             </small>
-            <h2 className="text-xl font-bold sm:text-nowrap">
+            <h2 className="text-xl font-bold sm:text-nowrap max-w-[15rem]">
               Sales revenue increased
             </h2>
             <span className="text-xl font-bold">
@@ -172,7 +172,7 @@ const DashboardPage = () => {
           {/* <DoughnutChart viewPerformance={dashboardData.total_view_perfomance}/> */}
 
           {/* Footer Section */}
-          <div className="flex justify-end w-full mt-4 md:-mt-[32rem] lg:-mt-[13rem]">
+          <div className="flex justify-end w-full mt-4 md:-mt-[32rem] xl:-mt-[13rem]">
             <div className="bg-[#d9d3c9] p-6 rounded-lg shadow-lg w-full md:max-w-[17rem] 2xl:max-w-[24rem] px-6 h-[22rem] flex flex-col justify-end">
               <h2 className="text-2xl font-bold text-gray-900 leading-tight max-w-[16rem] 2xl:max-w-full text-center">
                 Level up your sales management to the next level
