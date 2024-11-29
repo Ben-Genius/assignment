@@ -155,7 +155,7 @@ const DashboardPage = () => {
           />
 
           {/* Charts Section */}
-
+<br/>
           <SalesDashboard salesData={dashboardData.sales_report} />
 
           <Revenue
@@ -172,8 +172,8 @@ const DashboardPage = () => {
           {/* <DoughnutChart viewPerformance={dashboardData.total_view_perfomance}/> */}
 
           {/* Footer Section */}
-          <div className="flex justify-end w-full mt-4 md:-mt-[32rem] xl:-mt-[13rem]">
-            <div className="bg-[#d9d3c9] p-6 rounded-lg shadow-lg w-full md:max-w-[17rem] 2xl:max-w-[24rem] px-6 h-[22rem] flex flex-col justify-end">
+          <div className="flex justify-end w-full mt-4 md:-mt-[32rem] xl:-mt-[13rem] xl:ml-[3rem]">
+            <div className="bg-[#d9d3c9] p-6 rounded-lg shadow-lg w-full md:max-w-[17rem] xl:max-w-[20rem]  2xl:max-w-[24rem] px-6 h-[22rem] flex flex-col justify-end">
               <h2 className="text-2xl font-bold text-gray-900 leading-tight max-w-[16rem] 2xl:max-w-full text-center">
                 Level up your sales management to the next level
               </h2>
