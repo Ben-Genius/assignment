@@ -57,8 +57,8 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
   };
   
   return (
-   <div className="">
-     <div className="bg-white shadow-lg rounded-2xl w-[20rem] p-6 border-b-4 border-gray-800">
+   <div className="w-full lg:mt-20">
+     <div className="bg-white shadow-lg rounded-2xl w-full p-6 border-b-4 border-gray-800">
        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
          Total View Performance
        </h2>
