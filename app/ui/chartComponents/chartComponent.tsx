@@ -24,7 +24,7 @@ export const SalesDashboard = ({ salesData }: { salesData: { product_launched: s
   ];
 
   return (
-    <div className="  xl:col-start-1 xl:col-span-1 mx-auto max-w-[40rem] w-full">
+    <div className="  xl:col-start-1 xl:col-span-1 mx-auto max-w-[40rem] w-full xl:w-[28rem] 2xl:w-[32rem] ">
     <div className="overflow-hidden rounded-lg bg-gray-100 shadow w-full">
       <div className="px-4 py-5 sm:p-6 flex items-center justify-between">
         <div className="text-xl font-bold">Sales Report</div>
@@ -75,7 +75,7 @@ export const Revenue = ({ revenueData }: { revenueData: {
   }>;
 } }) => {
   return (
-    <div className="overflow-hidden rounded-lg bg-gray-100 shadow  w-full  xl:col-span-2">
+    <div className="overflow-hidden rounded-lg bg-gray-100 shadow  w-full  xl:col-span-2 xl:w-[23rem] mx-auto  2xl:w-[32rem] xl:ml-[11rem]">
       <div className=" sm:p-6 flex items-center justify-between w-full">
         <div className="text-xl font-bold">Revenue</div>
         <div className="flex items-center space-x-4">
