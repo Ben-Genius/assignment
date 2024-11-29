@@ -63,7 +63,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-[#022706] text-white p-6 rounded-xl shadow  px-6 w-full h-[14rem] ">
           <div className=" flex items-center  space-x-2 mb-4 w-full">
             {" "}
@@ -125,30 +125,33 @@ const DashboardPage = () => {
             <span>from last month</span>
           </div>
         </div>
-        <DoughnutChart viewPerformance={dashboardData.total_view_perfomance}/>
       </div>
-      <Revenue revenueData={{
-        ...dashboardData.revenue,
-        break_down: dashboardData.revenue.break_down.map(item => ({
-          ...item,
-          week: item.week.toString()
-        }))
-      }}/>
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative lg:bottom-80 items-start">
-        <SalesDashboard salesData={dashboardData.sales_report}/>
-        {/* Footer Section */}
-        <div className="bg-[#d9d3c9] p-6 rounded-lg shadow-lg lg:max-w-[20rem] max-w-full mx-auto flex flex-col justify-end px-6 h-[22rem]">
-          <h2 className="text-2xl font-bold text-gray-900 leading-tight max-w-[16rem]">
-            Level up your sales management to the next level
-          </h2>
-          <p className="mt-8 text-sm text-gray-700 leading-normal">
-            An any way to manage sales with care and precision
-          </p>
-          <button className="mt-4 bg-green-600 text-white text-base px-6 py-2 rounded-lg shadow hover:bg-green-700 mb-4">
-            Update to Siohioma+
-          </button>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-6 items-center justify-center">
+        <div className="w-full">
+          <Revenue 
+            revenueData={{
+              ...dashboardData.revenue,
+              break_down: dashboardData.revenue.break_down.map(item => ({
+                ...item,
+                week: item.week.toString()
+              }))
+            }}
+          />
         </div>
+   
+        <div className="w-full">
+          <SalesDashboard 
+            salesData={dashboardData.sales_report}
+          />
+        </div>
+             
+        <div className="w-full">
+          <DoughnutChart 
+            viewPerformance={dashboardData.total_view_perfomance}
+          />
+        </div>
+        
       </div>
     </div>
   );
