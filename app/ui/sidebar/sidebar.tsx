@@ -110,14 +110,16 @@ export default function Sidebar({ isMobileOpen, onLinkClick }: { isMobileOpen?: 
           </ul>
         </div>
       </nav>
-      <button
+    <div className='ml-3'>
+    <button
         type="button"
         onClick={logoutUser}
-        className="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-700 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center my-7 w-[90%] mx-auto ml-2 md:ml-0"
+        className="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-700 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center my-7 w-[90%]  md:ml-0"
       > Logout
         <BiDoorOpen aria-hidden="true" className="-ml-0.5 size-4 text-gray-800 fill-current" />
        
       </button>
+    </div>
 
       {/* User Profile */}
       <div className="p-4 lg:mt-auto border-t border-[#004D26] mt-[10rem] md:mt-[20rem]">
