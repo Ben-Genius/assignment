@@ -24,7 +24,7 @@ export const SalesDashboard = ({ salesData }: { salesData: { product_launched: s
   ];
 
   return (
-    <div className=" w-full mt-8 md:-mt-8">
+    <div className=" lg:w-[25rem] lg:col-start-1 col-span-1 mx-auto max-w-[40rem] w-full">
     <div className="overflow-hidden rounded-lg bg-gray-100 shadow w-full">
       <div className="px-4 py-5 sm:p-6 flex items-center justify-between">
         <div className="text-xl font-bold">Sales Report</div>
@@ -75,8 +75,8 @@ export const Revenue = ({ revenueData }: { revenueData: {
   }>;
 } }) => {
   return (
-    <div className="overflow-hidden rounded-lg bg-gray-100 shadow my-10 ">
-      <div className="px-4 py-5 sm:p-6 flex items-center justify-between">
+    <div className="overflow-hidden rounded-lg bg-gray-100 shadow  w-full  lg:col-span-2 lg:w-[29rem] mx-auto lg:ml-[7rem]">
+      <div className=" sm:p-6 flex items-center justify-between">
         <div className="text-xl font-bold">Revenue</div>
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
@@ -105,7 +105,8 @@ export const Revenue = ({ revenueData }: { revenueData: {
           </div>
         </div>
       </div>
-      <div className="h-64 px-4">
+
+      <div className="h-[10rem] px-4">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={revenueData.break_down.map(item => ({
