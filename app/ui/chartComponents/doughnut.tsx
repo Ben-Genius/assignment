@@ -35,10 +35,10 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
         display: false,
       },
       datalabels: {
-        color: "#fff",
+        color: "black",
         formatter: (value: number, context: any) => {
           const label = context.chart.data.labels[context.dataIndex];
-          return `${label}\n${value.toFixed(1)}%`;
+          return `${value.toFixed(0)}%`;
         },
 
         anchor: "center" as const,
@@ -48,16 +48,14 @@ const DoughnutChart = ({ viewPerformance }: { viewPerformance: ViewPerformance }
           weight: "bold" as const,
         },
         padding: 6,
-        backgroundColor: function(context: any) {
-          return context.dataset.backgroundColor[context.dataIndex];
-        },
-        borderRadius: 4
+        backgroundColor:'white',
+        borderRadius: 100
       },
     },
   };
   
   return (
-   <div className="w-full lg:mt-20">
+   <div className="w-full row-span-10">
      <div className="bg-white shadow-lg rounded-2xl w-full p-6 border-b-4 border-gray-800">
        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
          Total View Performance
